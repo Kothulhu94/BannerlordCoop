@@ -1,0 +1,21 @@
+<Prefab>
+  <Window>
+    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Center">
+      
+      <!-- Visual Container centered on screen -->
+      <ListPanel DataSource="{ViewModel}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" StackLayout.LayoutMethod="VerticalBottomToTop">
+        
+        <!-- Request Trade Button -->
+        <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="300" SuggestedHeight="60" Brush="Button.Simple.Large" Command.Click="ExecuteTrade" MarginBottom="10">
+          <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Button.Simple.Large.Text" Text="Request Trade" />
+        </ButtonWidget>
+
+        <!-- Challenge to Duel Button -->
+        <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="300" SuggestedHeight="60" Brush="Button.Simple.Large" Command.Click="ExecuteDuel" MarginTop="10">
+          <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Button.Simple.Large.Text" Text="Challenge to Duel" />
+        </ButtonWidget>
+
+      </ListPanel>
+    </Widget>
+  </Window>
+</Prefab>
