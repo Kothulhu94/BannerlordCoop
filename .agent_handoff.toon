@@ -1,0 +1,41 @@
+Project
+  Name: Bannerlord Coop Portable
+  Goal: Multiplayer Co-op Mod Development
+  System: Restricted (No Admin, No Symlinks, Portable)
+
+Environment
+  Root: Flash Drive Workspace
+  Tools
+    Git: DevTools/git/cmd/git.exe (MinGit)
+    DotNet: D:/Bannerlord_Coop/DevTools/dotnet/dotnet.exe (Portable SDK)
+    Python: D:/PortablePython/python.exe
+  Scripts[3]{File,Purpose,Note}
+    Start_Dev_Env.bat, "Sets PATH and DOTNET_ROOT", "Must run this first to load tools"
+    Setup/Setup_Game_Libs.py, "Copies Game DLLs to LocalGameLibs", "Replaces runmefirst.cmd (Avoids Symlinks)"
+    Setup/Deploy_Mod.py, "Copies built binaries to Game Modules", "Manual deployment script. Usage: python Setup/Deploy_Mod.py <GamePath>"
+
+Constraints
+  Admin_Privileges: False
+  Symlinks: Forbidden (mklink fails)
+  Registry_Access: None
+  Standard_Installers: Forbidden
+
+Workflow[4]{Step,Action,Details}
+  1, "Initialize", "Run Start_Dev_Env.bat to load portable environment variables (or use absolute paths)"
+  2, "Dependencies", "Run python Setup/Setup_Game_Libs.py"
+  3, "Build", "Run 'D:/Bannerlord_Coop/DevTools/dotnet/dotnet.exe build Source/source/Coop/Coop.csproj'"
+  4, "Deploy", "Run 'D:/PortablePython/python.exe Setup/Deploy_Mod.py \"C:/Users/Mgarcia.EVVCR/.gemini/antigravity/brain/a80f5840-3018-4cca-84d3-46e7bfe9ebed/Steam/steamapps/common/Mount & Blade II Bannerlord\"'"
+
+Git Workflow
+  Policy: "CODE ONLY. Do not commit .md files, artifacts, or binary output."
+  Steps:
+    1. Fetch: "git fetch origin development"
+    2. Reset: "git reset --mixed origin/development" (Preserves work, aligns history)
+    3. Add: "git add <specific_code_files>" (NEVER use 'git add .')
+    4. Commit: "git commit -m 'Message'"
+    5. Push: "git push origin master:development"
+
+Troubleshooting[3]{Error,Cause,Fix}
+  "Reference not found", "LocalGameLibs folder empty or missing", "Run Setup/Setup_Game_Libs.py"
+  "dotnet not found", "Environment variables not loaded", "Launch VS Code via Start_Dev_Env.bat"
+  "Access Denied", "Bannerlord.exe is currently running", "Close game before running Deploy"
